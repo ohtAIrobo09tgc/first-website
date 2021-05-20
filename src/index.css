@@ -16,38 +16,16 @@
 
      .number-button {
 
-       background-color: red;
+       background-color: white;
 
      }
 
      .operator {
 
-       background-color: white;
+       background-color: cyan;
 
      }
 
-     #zero {
-
-       background-color: white;
-       position: absolute;
-       top: 122px;
-       right: 1498px;
-
-     }
-
-     #ansoer {
-
-       position: absolute;
-       top: 122px;
-       right: 1428px;
-
-     }
-
-     #second1 {
-
-       position: absolute;
-       top: 88px;
-       right: 1498px;
-
-
+     #equal {
+       background-color: lightgreen;
      }
