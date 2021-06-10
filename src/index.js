@@ -1,4 +1,5 @@
 let operatorPressed = false;
+let equalPressed = false;
 let inputs = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -6,19 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   for (const $e of document.getElementsByClassName('number-button')) {
     $e.addEventListener('click', () => {
-      if (operatorPressed) {
+      
+      if (equalPressed) {
+        $display.textContent = $e.textContent;
+        equalPressed = false;
+      }
+      
+      else if (operatorPressed) {
         $display.textContent = $e.textContent;
         operatorPressed = false;
       }
+      
       else {
         if ($display.textContent === '0' && $e.textContent === '0') {
-          // 何もしない
+          
         }
-        
         else if ($display.textContent === '0') {
           $display.textContent = $e.textContent;
         }
-        
         else {
           $display.textContent = $display.textContent + $e.textContent;
         }
@@ -28,43 +34,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
   for (const $e of document.getElementsByClassName('operator')) {
     $e.addEventListener('click', () => {
-      if(!operatorPressed) {
+      equalPressed = false;
+      
+      if (!operatorPressed) {
         inputs.push($display.textContent);
         operatorPressed = true;
         inputs.push($e.textContent);
       }
-      else{
-        inputs[inprts.length - 1] = $e.textContent;
+      else {
+        inputs[inputs.length - 1] = $e.textContent;
       }
     });
   }
 
   document.getElementById('equal')
     .addEventListener('click', () => {
-      inputs.push($display.testContent);
+      if (operatorPressed) return;
       
+      equalPressed = true;
+    
+      inputs.push($display.textContent);
+              
       operand = '';
-      before = Number(inpurts[0]);
-
+      before = Number(inputs[0]);
+      
       for (const e of inputs.slice(1)) {
-        if (e === '+' || e === '-' || e === '×' || e === '÷'){
+        if (e === '＋' || e === '－' || e === '×' || e === '÷') {
           operand = e;
         }
-        else{
-          if(operand === '+') {
+        else {
+          if (operand === '＋') {
             before = before + Number(e);
           }
-          else if (operand === '-') {
-            before = before + Number(e);
+          else if (operand === '－') {
+            before = before - Number(e);
           }
           else if (operand === '×') {
-            before = before + Number(e);
+            before = before * Number(e);
           }
           else if (operand === '÷') {
-            before = before + Number(e);
+            before = before / Number(e);
           }
         }
       }
-      console.log(before);
+      
+      inputs = [];
+      $display.textContent = before;
     });
 });
